@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos - Ristretto Café Bar</title>
-    <!-- Bootstrap CSS -->
+  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="/vue-project/src/Style.css">
-    <!-- Ícones do Bootstrap para o Modal -->
+  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body id="body-produto">
 
-    <!-- Toda a aplicação envelopada em um ÚNICO id="app" -->
+  
     <div id="app">
         
         <header>
@@ -29,7 +29,7 @@
                 <a class="nav-link" aria-current="page" href="sobre.html">SOBRE</a>
             </div>
 
-            <!-- BOTÃO DO CARRINHO (Esconde se o carrinho estiver vazio utilizando a sua classe CSS) -->
+           
             <div id="btn-carrinho-div" :class="{ 'some-btn': carrinho.length === 0 }">
                 <button id="btn-carrinho" type="button" @click="abaCarrinhoAberta = true">
                     <div class="quantidade-cart">{{ totalItens }}</div>
@@ -37,7 +37,7 @@
                 </button>
             </div>
 
-            <!-- OFF-CANVAS LATERAL DO CARRINHO (Controlado via v-if para evitar congelamentos) -->
+            
             <div class="offcanvas offcanvas-end show" tabindex="-1" v-if="abaCarrinhoAberta" style="visibility: visible; background: #fff;">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title">Carrinho</h5>
@@ -45,7 +45,7 @@
                 </div>
                 
                 <div class="offcanvas-body">
-                    <!-- Lista de Itens Adicionados -->
+                   
                     <div class="js-produto-carrinho">
                         <div v-for="item in carrinho" :key="item.produtoNome" class="produto-carrinho-div d-flex align-items-center justify-content-between p-2 mb-2 border-bottom">
                             <div class="produto-imagem">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <!-- Rodapé do Carrinho com Totalizador e Finalização -->
+              
                 <div id="precototal" class="preco-total p-3 border-top">
                     <div class="txt-preco d-flex justify-content-between align-items-center mb-3">
                         <div class="offcanvas-title fw-bold">Total a pagar:</div>
@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        <!-- MODAL DE SUCESSO REATIVO (Aparece sem travar o fundo) -->
+        <!-- MODAL DE SUCESSO REATIVO  -->
         <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0,0,0,0.6);" v-if="sucesso">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -141,7 +141,7 @@
             </div>
         </div>
 
-    </div> <!-- Fim do #app -->
+    </div> 
 
     <footer>
         <img src="Imagens\Ristretto_cafebar_branca 1.png" alt="">
@@ -166,23 +166,22 @@
 
         createApp({
             setup() {
-                // Array reativo que consome os dados do arquivo externo 'lista-produtos.js'
+               
                 const listaProdutos = ref(produtos)
 
-                // Estados reativos
+               
                 const carrinho = ref([])
                 const abaCarrinhoAberta = ref(false)
                 const carregando = ref(false)
                 const sucesso = ref(false)
                 const mensagemSucesso = ref('')
 
-                // Mapeia e isola as quantidades selecionadas de cada produto da vitrine
                 const quantidadesSelecionadas = reactive({})
                 listaProdutos.value.forEach(p => {
                     quantidadesSelecionadas[p.nome] = 1
                 })
 
-                // Métodos de Ação
+                
                 function buscarProduto(nome) {
                     return listaProdutos.value.find(p => p.nome === nome)
                 }
@@ -210,7 +209,7 @@
                     carregando.value = true
                     sucesso.value = false
 
-                    // Simulação assíncrona que fecha as abas e limpa os dados ordenadamente
+                    
                     setTimeout(() => {
                         carregando.value = false
                         abaCarrinhoAberta.value = false // Fecha o carrinho lateral primeiro
@@ -220,7 +219,7 @@
                     }, 1500)
                 }
 
-                // Propriedades Computadas para reatividade em tempo real
+               
                 const totalItens = computed(() => {
                     return carrinho.value.reduce((acc, item) => acc + item.quantidade, 0)
                 })
